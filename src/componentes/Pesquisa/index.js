@@ -1,14 +1,14 @@
-import Input from "../Input.js"
-import styled from "styled-components"
-import { useState } from "react"
-import { Livros } from "./DadosPesquisa.js"
+import Input from '../Input'
+import styled from 'styled-components'
+import { useState } from 'react'
+import { livros } from './dadosPesquisa'
 
 const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);
     color: #FFF;
     text-align: center;
     padding: 85px 0;
-    height: 270px;
+    height: 470px;
     width: 100%;
 `
 
@@ -24,50 +24,50 @@ const Subtitulo = styled.h3`
     font-weight: 500;
     margin-bottom: 40px;
 `
+
 const Resultado = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     cursor: pointer;
+
     p {
         width: 200px;
     }
+
     img {
         width: 100px;
     }
+
     &:hover {
         border: 1px solid white;
     }
 `
 
 function Pesquisa() {
-
-    const [LivrosPesquisados, setLivrosPesquisados] = useState([]) 
+    const [livrosPesquisados, setLivrosPesquisados] = useState([])
 
     return (
         <PesquisaContainer>
-            <Titulo>já sabe por onde começar?</Titulo>
+            <Titulo>Já sabe por onde começar?</Titulo>
             <Subtitulo>Encontre seu livro em nossa estante.</Subtitulo>
             <Input
-                placeholder="Qual livro procura?"
+                placeholder="Escreva sua próxima leitura"
                 onBlur={evento => {
-                    const TextoDigitado = evento.target.value
-                    const ResultadoPesquisa = Livros.filter(Livros => Livros.nome.includes(TextoDigitado))
-                    setLivrosPesquisados(ResultadoPesquisa)
+                    const textoDigitado = evento.target.value
+                    const resultadoPesquisa = livros.filter( livro => livro.nome.includes(textoDigitado))
+                    setLivrosPesquisados(resultadoPesquisa)
                 }}
             />
-            { LivrosPesquisados.map( Livros => (
+            { livrosPesquisados.map( livro => (
                 <Resultado>
-                    <p>{Livros.nome}</p>
-                    <img src={Livros.src}/>
+                    <img src={livro.src}/>
+                    <p>{livro.nome}</p>
                 </Resultado>
             ) ) }
-
         </PesquisaContainer>
-
     )
-
 }
 
 export default Pesquisa
